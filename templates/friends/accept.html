@@ -1,0 +1,20 @@
+{% extends 'friends/listaccept.html' %}
+{% load shop_extras %}
+{% load bootstrap4 %}
+
+{% block panel_title %}
+    Zakceptuj zaproszenia
+{% endblock %}
+
+{% block panel_links %}
+  <a href="{% url 'allusers' %}" class="mb-2 btn btn-block btn-outline-primary rounded-2" role="button">Wyszukaj znajomego</a>
+  <a href="{% url 'friends' %}" class="mb-2 btn btn-block btn-outline-primary rounded-2"
+  role="button">Moja lista
+  znajomych</a>
+{% endblock %}
+
+
+{% block buttons %}
+  <a href="{% url 'addaccept' profile.id %}" class="mb-2 btn btn-block btn-outline-primary btn-sm rounded-2" role="button"><i class="fa fa-star" id="star{{profile.owner.id}}" aria-hidden="true" ></i>Zakceptuj</ a>  
+  <a href="{% url 'acceptdelete' profile.id %}" class="mb-2 btn btn-block btn-outline-primary btn-sm rounded-2" role="button"><i class="fa fa-star" id="star{{profile.owner.id}}" aria-hidden="true" ></i>Usuń</a>  
+{% endblock %}

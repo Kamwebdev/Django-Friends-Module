@@ -1,0 +1,39 @@
+{% extends 'friends/listallusers.html' %}
+{% load shop_extras %}
+{% load bootstrap4 %}
+
+{% block panel_title %}
+    Wyszukaj użytkownika
+{% endblock %}
+
+{% block panel_links %}
+    <a href="{% url 'acceptlistfriend' %}" class="mb-2 btn btn-block btn-outline-primary rounded-2"
+    role="button">Otrzymane zaproszenia</a>
+    <a href="{% url 'friends' %}" class="mb-2 btn btn-block btn-outline-primary rounded-2"
+    role="button">Moja lista
+    znajomych</a>
+{% endblock %}
+
+{% block buttons %}
+    <button type="submit" onclick="return like({{profile.user.id}})" id="star{{profile.user.id}}" class="mb-2 btn btn-block btn-outline-primary btn-sm rounded-2">
+        Dodaj znajomego
+    </button>
+    <a href="{% url 'sendtransfer' profile.user.id %}" class="mb-2 btn btn-block btn-outline-primary btn-sm rounded-2" role="button">
+        Wyślij przelew</a>
+    <a href="{% url 'sendtransferrequest' profile.user.id %}" class="mb-2 btn btn-block btn-outline-primary btn-sm rounded-2" role="button">
+        Poproś o przelew
+    </a>
+{% endblock %}
+
+
+
+{% block scripts %}
+    <script>
+        function like(id) {
+            $.post("friends/add/", {
+                id: id,
+                csrfmiddlewaretoken: '{{ csrf_token }}'
+            }).then(document.getElementById("star"+id).style.visibility = "hidden");
+        };
+    </script>
+{% endblock %}

@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load shop_extras %}
+{% load bootstrap4 %}
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-3 col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">{% block panel_title %}{% endblock %}</h3>
+                    <span class="pull-right clickable"><i class="glyphicon glyphicon-chevron-up"></i></span>
+                </div>
+                <div class="panel-body">
+                    <form method="get" class="">
+                        {% bootstrap_form filter.form layout='inline'  %}
+                        <button type="submit" class="mb-2 btn btn-block btn-outline-primary rounded-2">Wyszukaj</button>
+                        {% block panel_links %}{% endblock %}
+                        <a href="javascript:history.go(-1)" class="mb-2 btn btn-block btn-outline-primary rounded-2"><i class="fa fa-angle-left" aria-hidden="true"></i>Powrót</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-9 col-md-9">
+            <!--
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Dashboard</h3>
+                     <div class="pull-right">
+                        <button type="button" class="close" aria-label="Close">
+                          <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                </div>-->
+            <div class="panel-body">
+                <!--
+                    <span class="pull-right">
+                        <a href="#" class="btn btn-default">Manage categories</a>
+                        <a href="#" class="btn btn-default">Arrange</a>
+                        <a href="#" class="btn btn-lg btn-primary">
+                            <span class="glyphicon glyphicon-plus"></span> Create new</a>
+                    </span>
+                    
+                    <p>Admin Dashboard Accordion List Group Menu</p>
+                    -->
+                <div class="row">
+                    {% for profile in object_list %}
+                    <div class="col-md-4">
+                        <div class="card">
+                            <img class="card-img-top img-responsive" style="height: 200px; overflow: hidden;" src="/media/{{ profile.user.userimage.picture }}"
+                                alt="User profile image">
+                            <div class="card-body">
+                                <h5 class="card-title border-bottom pb-3">
+                                    {{ profile.user.first_name|default:"Anonymous" }}
+                                    {{ profile.user.last_name|default:"Anonymous" }} </h5>
+                                <p class="card-text">
+                                    <p>
+                                        Stan konta: {{ profile.userprofile.balance|default:"0" }} pkt<br />
+                                        Miasto: {{ profile.user.userprofile.city|default:"niezdefiniowano" }}
+                                    </p>
+                                    <!--<p>Opis: {{ profile.user.userprofile.aboutMe|truncatechars:120 }}</p>-->
+                                </p>
+                                <a href="{% url 'user_page' profile.user.id %}" class="mb-2 btn btn-block btn-outline-primary btn-sm rounded-2"><i class="fa fa-angle-left" aria-hidden="true"></i>Zobacz profil</a>
+                                {% block buttons %}{% endblock %}
+                            </div>
+                        </div>
+                    </div>
+                    {% empty %}
+                    No items yet.
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}

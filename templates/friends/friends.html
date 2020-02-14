@@ -1,0 +1,17 @@
+{% extends 'friends/listfriends.html' %}
+{% load shop_extras %}
+{% load bootstrap4 %}
+
+{% block panel_title %}
+    Moi znajomi
+{% endblock %}
+
+{% block panel_links %}
+  <a href="{% url 'allusers' %}" class="mb-2 btn btn-block btn-outline-primary rounded-2" role="button">Wyszukaj znajomego</a>
+  <a href="{% url 'acceptlistfriend' %}" class="mb-2 btn btn-block btn-outline-primary rounded-2" role="button">Otrzymane zaproszenia</a>
+{% endblock %}
+
+
+{% block buttons %}
+ <a href="{% url 'frienddelete' profile.id %}" class="mb-2 btn btn-block btn-outline-primary btn-sm rounded-2" role="button"><i class="fa fa-star" id="star{{profile.liked.id}}" aria-hidden="true" ></i>Usuń</a>
+{% endblock %}
